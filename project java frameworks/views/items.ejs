@@ -1,0 +1,23 @@
+%- include('layout') %>
+<h1>My Items</h1>
+<form action="/items/create" method="POST">
+  <input type="text" name="title" placeholder="Title" required>
+  <textarea name="description" placeholder="Description"></textarea>
+  <button type="submit">Add Item</button>
+</form>
+<ul>
+  % items.forEach(item => { %>
+    <li>
+      <strong>%= item.title %></strong>
+      <p>%= item.description %></p>
+      <form action="/items/%= item._id %>?_method=PUT" method="POST">
+        <input type="text" name="title" value="%= item.title %>">
+        <textarea name="description">%= item.description %></textarea>
+        <button type="submit">Update</button>
+      </form>
+      <form action="/items/%= item._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  % }) %>
+</ul>
